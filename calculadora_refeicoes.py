@@ -2,6 +2,7 @@
 # Criatividade: estou calculando refrigerantes e sobremesas ao total geral
 
 # FUNÇÕES DE VALIDAÇÃO COM BLOQUEIO NEGATIVO
+
 def ler_float(mensagem):
     """Garante que o usuário digite um número decimal válido e MAIOR OU IGUAL A ZERO"""
     while True:
