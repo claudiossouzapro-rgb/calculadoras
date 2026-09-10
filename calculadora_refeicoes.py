@@ -1,52 +1,98 @@
 # Criatividade : estou adicionando refrigerantes e sobremesas ao código
 # Criatividade: estou calculando refrigerantes e sobremesas ao total geral
 
-# O preço da refeição de uma criança (ponto flutuante)
-preco_crianca = float(input("Qual é o preco da refeicao de uma criança?: R$ ")) 
-#  O preço da refeição de um adulto (ponto flutuante)
-preco_adulto = float(input("Qual é o preco da refeicao de um adulto?: R$ "))
-# O número de crianças (inteiro)
-numero_crianca = int(input("Qual é o numero de criancas: "))
-# O número de adultos (inteiro)
-numero_adulto = int(input("Qual é o numero de adultos: "))
-# O preço do refirgerante (ponto flutuante)
-preco_refrigerante = float(input("Qual é o preco do refrigerante?: R$ "))
-# O número dos refrigerantes vendidos(inteiro)
-numero_refrigerante_vendido = int(input("Quantos refrigerantes foram vendidos: "))
-# O preço da sobremesa (ponto flutuante)
-preco_sobremesa = float(input("Qual é o preço da sobremesa?: R$ "))
-# O número de sobremesas vendidas (inteiro)
-numero_sobremesa_vendida = int(input("Quantas sobremesas foram vendidas?: "))
-# Calculando os totais relativos as crianças (ponto flutuante)
+# FUNÇÕES DE VALIDAÇÃO (Nossos escudos anti-erro)
+
+
+def ler_float(mensagem):
+    """Garante que o usuário digite um número decimal válido"""
+    while True:
+        try:
+            entrada = input(mensagem).replace(",", ".")
+            return float(entrada)
+        except ValueError:
+            print("❌ Erro: Digite um preço válido usando apenas números e pontos/vírgulas.")
+
+def ler_int(mensagem):
+    """Garante que o usuário digite um número inteiro válido (quantidade)"""
+    while True:
+        try:
+            return int(input(mensagem))
+        except ValueError:
+            print("❌ Erro: Quantidade inválida! Digite apenas números inteiros (ex: 2, 5, 10).")
+
+
+# CÓDIGO PRINCIPAL (Usando as funções novas)
+
+# Agora usamos 'ler_float' para preços e 'ler_int' para quantidades
+preco_crianca = ler_float("Qual é o preco da refeicao de uma criança?: R$ ") 
+preco_adulto = ler_float("Qual é o preco da refeicao de um adulto?: R$ ")
+
+numero_crianca = ler_int("Qual é o numero de criancas: ")
+numero_adulto = ler_int("Qual é o numero de adultos: ")
+
+preco_refrigerante = ler_float("Qual é o preco do refrigerante?: R$ ")
+numero_refrigerante_vendido = ler_int("Quantos refrigerantes foram vendidos: ")
+
+preco_sobremesa = ler_float("Qual é o preço da sobremesa?: R$ ")
+numero_sobremesa_vendida = ler_int("Quantas sobremesas foram vendidas?: ")
+
+# --- Daqui para baixo o resto dos seus cálculos matemáticos continua igualzinho! ---
 total_crianca = preco_crianca * numero_crianca
 print(f"\nSubtotal das criancas: R$ {total_crianca:,.2f} ")
-# Calculando os totais relativos aos adultos(ponto flutuante)
+
 total_adulto = preco_adulto * numero_adulto 
 print(f"\nSubtotal dos adultos: R$ {total_adulto:,.2f} ")
-# Calculando os totais relativos as sobremesas (ponto flutuante)
+
 total_sobremesas = preco_sobremesa * numero_sobremesa_vendida
 print(f"\nSubtotal das sobremesas: R$ {total_sobremesas:,.2f} ")
-# Calculando os totais relativos aos refrigerantes (ponto flutuante)
+
 total_refrigerantes = preco_refrigerante * numero_refrigerante_vendido
 print(f"\nSubtotal dos refrigerantes R$ {total_refrigerantes:,.2f} ")
-# Total_Geral
-# Calculando o subtotal geral da conta
+
 subtotal_geral = total_crianca + total_adulto + total_sobremesas + total_refrigerantes
-# Calculando o subtotal geral da conta
-subtotal_geral = total_crianca + total_adulto + total_sobremesas + total_refrigerantes
-# Exibindo o valor total formatado COM a vírgula para o milhar e o ponto para os centavos
 print(f"\nSubtotal Geral: R$ {subtotal_geral:,.2f}")
-# Pedir a taxa do imposto ao usuario (ponto flutuante)
-taxa_imposto = float(input("Qual é a taxa do imposto sobre as vendas?:(%)  "))
-# Calcular o valor do imposto
+
+taxa_imposto = ler_float("Qual é a taxa do imposto sobre as vendas?:(%)  ")
 imposto = subtotal_geral * (taxa_imposto / 100)
 print(f"\nimposto : R$ {imposto:,.2f} ")
-# Calcular o total geral
+
 total_geral = subtotal_geral + imposto
 print(f"\ntotal_geral : R$ {total_geral:,.2f} ")
-# Pedir o valor do pagamento ao usuario (ponto flutuante)
-pagamento = float(input("\nQual o valor do pagamento?: R$ ").replace(",", "."))
-# Calcular o troco
+
+pagamento = ler_float("\nQual o valor do pagamento?: R$ ")
 troco = pagamento - total_geral
 print(f"\ntroco : R$ {troco:,.2f} ")
 
+# FUNÇÕES DE VALIDAÇÃO COM BLOQUEIO NEGATIVO
+
+def ler_float(mensagem):
+    """Garante que o usuário digite um número decimal válido e MAIOR OU IGUAL A ZERO"""
+    while True:
+        try:
+            entrada = input(mensagem).replace(",", ".")
+            valor = float(entrada)
+            
+            # Bloqueio de valores negativos
+            if valor < 0:
+                print("❌ Erro: O valor não pode ser negativo! Digite 0 ou um valor maior.")
+                continue # Faz o laço 'while' recomeçar a pergunta
+                
+            return valor
+        except ValueError:
+            print("❌ Erro: Digite um preço válido usando apenas números e pontos/vírgulas.")
+
+def ler_int(mensagem):
+    """Garante que o usuário digite um número inteiro válido e MAIOR OU IGUAL A ZERO"""
+    while True:
+        try:
+            valor = int(input(mensagem))
+            
+            # Bloqueio de valores negativos
+            if valor < 0:
+                print("❌ Erro: A quantidade não pode ser negativa! Digite 0 ou um valor maior.")
+                continue # Faz o laço 'while' recomeçar a pergunta
+                
+            return valor
+        except ValueError:
+            print("❌ Erro: Quantidade inválida! Digite apenas números inteiros (ex: 2, 5, 10).")
